@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 
+int ft_stoi(const std::string& s);
+
 class Contact {
    private:
     std::string first_name;
@@ -32,9 +34,11 @@ class PhoneBook {
 
    public:
     PhoneBook();
+    ~PhoneBook();
     void addContact();
     void searchContact() const;
     void printContact(int idx) const;
+    void printTable() const;
 };
 
 #endif

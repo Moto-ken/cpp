@@ -2,17 +2,17 @@
 #include "phonebook.hpp"
 
 int main(void) {
-    std::string a;
+    std::string cmd;
     PhoneBook phoneBook;
 
     while (1) {
         std::cout << "select mode" << std::endl;
-        std::cin >> a;
-        if (a == "ADD") {
+        if (!std::getline(std::cin, cmd)) return (1);
+        if (cmd == "ADD") {
             phoneBook.addContact();
-        } else if (a == "SEARCH") {
+        } else if (cmd == "SEARCH") {
             phoneBook.searchContact();
-        } else if (a == "EXIT") {
+        } else if (cmd == "EXIT") {
             break;
         } else {
             std::cout << "invailid command" << std::endl;
