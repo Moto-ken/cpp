@@ -14,22 +14,16 @@ int ft_stoi(const std::string& s) {
     long result = 0;
 
     if (s.empty()) throw std::invalid_argument("empty string");
-
     while (i < (int)s.size() && ft_isspace(s[i])) i++;
-
     if (i < (int)s.size() && (s[i] == '-' || s[i] == '+')) {
         if (s[i] == '-') sign = -1;
         i++;
     }
-
     if (i >= (int)s.size() || !ft_isdigit(s[i]))
         throw std::invalid_argument("no digits");
-
     while (i < (int)s.size() && ft_isdigit(s[i])) {
         result = result * 10 + (s[i] - '0');
-
         if (result > 2147483647) throw std::out_of_range("overflow");
-
         i++;
     }
     return static_cast<int>(result * sign);

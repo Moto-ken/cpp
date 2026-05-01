@@ -2,6 +2,7 @@
 #ifndef PHONEBOOK_H
 #define PHONEBOOK_H
 
+#include <cctype>
 #include <iomanip>
 #include <iostream>
 #include <string>

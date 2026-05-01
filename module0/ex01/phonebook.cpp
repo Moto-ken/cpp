@@ -69,13 +69,17 @@ void PhoneBook::printTable() const {
     std::cout << "|" << std::setw(10) << "index" << "|" << std::setw(10)
               << "first name" << "|" << std::setw(10) << "last name" << "|"
               << std::setw(10) << "nickname" << "|" << std::endl;
-
-    std::cout << "|" << std::setw(10) << std::right << j << "|" << std::setw(10)
-              << std::right << formatColumn(contacts[i].getFirst()) << "|"
-              << std::setw(10) << std::right
-              << formatColumn(contacts[i].getLast()) << "|" << std::setw(10)
-              << std::right << formatColumn(contacts[i].getNick()) << "|"
-              << std::endl;
+    while (i < count) {
+        j = i + 1;
+        std::cout << "|" << std::setw(10) << std::right << j << "|"
+                  << std::setw(10) << std::right
+                  << formatColumn(contacts[i].getFirst()) << "|"
+                  << std::setw(10) << std::right
+                  << formatColumn(contacts[i].getLast()) << "|" << std::setw(10)
+                  << std::right << formatColumn(contacts[i].getNick()) << "|"
+                  << std::endl;
+        i++;
+    }
 }
 
 void PhoneBook::searchContact() const {
