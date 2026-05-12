@@ -2,17 +2,7 @@
 #include "replace.hpp"
 
 int main(int argc, char** argv) {
-    if (argc != 3 || argv[2] == NULL) return (1);
-
-    // open file(argv[1])
-
-    // read file(argv[1])
-
-    // make argv[1].replace
-
-    // raplace argv[2] -> argv[3]
-
-    // write replaced str in argv[1].replace
-
+    if (argc != 4) return (1);
+    if (!replaceFile(argv[1], argv[2], argv[3])) return (1);
     return (0);
 }
