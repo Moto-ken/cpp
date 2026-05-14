@@ -21,5 +21,16 @@ int main(void) {
     std::cout << "c is " << c.toInt() << " as integer" << std::endl;
     std::cout << "d is " << d.toInt() << " as integer" << std::endl;
 
+    std::cout << "----------------------------" << std::endl;
+    std::cout << "a value is " << a.getRawBits() << std::endl;
+    std::cout << "b value is " << b.getRawBits() << std::endl;
+    std::cout << "c value is " << c.getRawBits() << std::endl;
+    std::cout << "d value is " << d.getRawBits() << std::endl;
+
+    std::cout << "-------------------------------" << std::endl;
+    Fixed e(10.5f);
+    std::cout << e.getRawBits() << std::endl;
+    std::cout << "e value is " << e << std::endl;
+
     return 0;
 }
