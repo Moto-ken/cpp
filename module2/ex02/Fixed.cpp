@@ -2,18 +2,12 @@
 #include "Fixed.hpp"
 
 // default constructor
-Fixed::Fixed() : value(0) {
-    std::cout << "Default constructor called" << std::endl;
-}
+Fixed::Fixed() : value(0) {}
 
 // constructor overload
-Fixed::Fixed(const int n) {
-    std::cout << "Int constructor called" << std::endl;
-    value = n << fractionalBits;
-}
+Fixed::Fixed(const int n) { value = n << fractionalBits; }
 
 Fixed::Fixed(const float n) {
-    std::cout << "Float constructor called" << std::endl;
     if (n >= 0)
         this->value = (int)(n * (1 << fractionalBits) + 0.5f);
     else
@@ -21,30 +15,20 @@ Fixed::Fixed(const float n) {
 }
 
 // copy constructor
-Fixed::Fixed(const Fixed& other) {
-    std::cout << "Copy constructor called" << std::endl;
-    // this->value = other.value;
-    *this = other;
-    // this->value = other.getRawBits();
-}
+Fixed::Fixed(const Fixed& other) : value(other.value) {}
 
 // copy assignment operator
 Fixed& Fixed::operator=(const Fixed& other) {
-    std::cout << "Copy assignment operator called" << std::endl;
     if (this != &other) {
         this->value = other.value;
-        // this->value = other.getRawBits();
     }
     return (*this);
 }
 
 // destrunctor
-Fixed::~Fixed() { std::cout << "Destructor called" << std::endl; }
+Fixed::~Fixed() {}
 
-int Fixed::getRawBits(void) const {
-    std::cout << "getRawBits member function called" << std::endl;
-    return (value);
-}
+int Fixed::getRawBits(void) const { return (value); }
 
 void Fixed::setRawBits(int const raw) { value = raw; }
 
@@ -62,45 +46,27 @@ std::ostream& operator<<(std::ostream& out, const Fixed& value) {
 
 // comparison
 bool Fixed::operator>(const Fixed& other) const {
-    if (this->value > other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value > other.value);
 }
 
 bool Fixed::operator<(const Fixed& other) const {
-    if (this->value < other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value < other.value);
 }
 
 bool Fixed::operator>=(const Fixed& other) const {
-    if (this->value >= other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value >= other.value);
 }
 
 bool Fixed::operator<=(const Fixed& other) const {
-    if (this->value <= other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value <= other.value);
 }
 
 bool Fixed::operator==(const Fixed& other) const {
-    if (this->value == other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value == other.value);
 }
 
 bool Fixed::operator!=(const Fixed& other) const {
-    if (this->value != other.value)
-        return (true);
-    else
-        return (false);
+    return (this->value != other.value);
 }
 
 // arthmetic
@@ -121,7 +87,10 @@ Fixed Fixed::operator*(const Fixed& other) const {
 
     long long mul = static_cast<long long>(this->value) *
                     static_cast<long long>(other.value);
-    mul += (1 << (fractionalBits - 1));
+    if (mul >= 0)
+        mul += (1LL << (fractionalBits - 1));
+    else
+        mul -= (1LL << (fractionalBits - 1));
     result.setRawBits(mul >> fractionalBits);
     return (result);
 }
@@ -136,7 +105,7 @@ Fixed Fixed::operator/(const Fixed& other) const {
     return (result);
 }
 
-// iterator
+// increments
 Fixed& Fixed::operator++() {
     this->value += 1;
     return (*this);
