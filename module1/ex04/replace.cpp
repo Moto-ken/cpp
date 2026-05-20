@@ -3,29 +3,25 @@
 
 std::string readFile(const char* filename) {
     std::ifstream infile(filename);
-    std::string content;
-    std::string line;
 
     if (!infile) throw std::runtime_error("Error opening file");
-    while (std::getline(infile, line)) {
-        content += line;
-        if (!infile.eof()) content += '\n';
-    }
-    return (content);
+    std::string str((std::istreambuf_iterator<char>(infile)),
+                    std::istreambuf_iterator<char>());
+    return (str);
 }
 
-std::string replaceString(const std::string& content, const std::string& s1,
+std::string replaceString(const std::string& str, const std::string& s1,
                           const std::string& s2) {
     std::string result;
     size_t pos = 0;
     size_t found = 0;
 
-    while ((found = content.find(s1, pos)) != std::string::npos) {
-        result += content.substr(pos, found - pos);
+    while ((found = str.find(s1, pos)) != std::string::npos) {
+        result += str.substr(pos, found - pos);
         result += s2;
         pos = found + s1.length();
     }
-    result += content.substr(pos);
+    result += str.substr(pos);
     return (result);
 }
 
@@ -36,15 +32,15 @@ bool replaceFile(const std::string& filename, const std::string& s1,
         return (false);
     }
 
-    std::string content;
+    std::string str;
     try {
-        content = readFile(filename.c_str());
+        str = readFile(filename.c_str());
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return (false);
     }
 
-    std::string result = replaceString(content, s1, s2);
+    std::string result = replaceString(str, s1, s2);
 
     std::string outFilename = filename + ".replace";
     std::ofstream outfile(outFilename.c_str());
@@ -53,6 +49,5 @@ bool replaceFile(const std::string& filename, const std::string& s1,
         return (false);
     }
     outfile << result;
-    outfile.close();
     return (true);
 }
