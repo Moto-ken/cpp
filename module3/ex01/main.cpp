@@ -1,18 +1,23 @@
 
-#include "ClapTrap.hpp"
+#include "ScavTrap.hpp"
 
 int main(void) {
-    ClapTrap ke;
-    ClapTrap mo(ke);
-    std::string bob = "bob";
-    ClapTrap to(bob);
-    ClapTrap ha;
-    ha = to;
+    ClapTrap* ke = new ScavTrap("ke");
+    std::string enemy = "mo";
+    ScavTrap mo(enemy);
 
     std::cout << "----------------------------" << std::endl;
-    ke.attack(bob);
-    to.takeDamage(0);
-    mo.beRepaired(100);
+    ke->attack(enemy);
+    mo.takeDamage(10);
+    mo.beRepaired(11);
+    dynamic_cast<ScavTrap*>(ke)->guardGate();
+
+    while (mo.getHitPoints() > 0) {
+        ke->attack(enemy);
+        mo.takeDamage(20);
+    }
+    mo.getStatus();
     std::cout << "----------------------------" << std::endl;
+    delete ke;
     return 0;
 }
