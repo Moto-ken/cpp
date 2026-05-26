@@ -8,11 +8,11 @@ FragTrap::FragTrap() : ClapTrap("default") {
     std::cout << "FragTrap " << name << " is created" << std::endl;
 }
 
-FragTrap::FragTrap(const std::string& name) : ClapTrap(name) {
+FragTrap::FragTrap(const std::string& fragName) : ClapTrap(fragName) {
     hit_points = 100;
     energy_points = 100;
     attack_damage = 30;
-    std::cout << "FragTrap " << name << " is created" << std::endl;
+    std::cout << "FragTrap " << fragName << " is created" << std::endl;
 }
 
 FragTrap::FragTrap(const FragTrap& other) : ClapTrap(other) {
