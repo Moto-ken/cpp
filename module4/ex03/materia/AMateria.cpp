@@ -24,5 +24,6 @@ AMateria::~AMateria() { std::cout << "AMateria destroyed" << std::endl; }
 std::string const& AMateria::getType() const { return (_type); }
 
 void AMateria::use(ICharacter& target) {
+    (void)target;
     std::cout << "Default materia use" << std::endl;
 }
