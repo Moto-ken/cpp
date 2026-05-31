@@ -3,26 +3,28 @@
 #include "materia/AMateria.hpp"
 #include "materia/Cure.hpp"
 #include "materia/Ice.hpp"
+#include "materiaSource/MateriaSource.hpp"
 
 int main() {
-    Character a("Alice");
-    Character b("Bob");
-
-    std::cout << "---------------------------" << std::endl;
+    Character alice("Alice");
+    Character bob("Bob");
+    MateriaSource src;
     AMateria* ice = new Ice();
     AMateria* cure = new Cure();
-    a.equip(ice);
-    a.equip(cure);
-    std::cout << "---------------------------" << std::endl;
-    a.use(0, b);  // Ice
-    a.use(1, b);  // Cure
-    std::cout << "---------------------------" << std::endl;
-    a.unequip(0);
-    a.use(0, b);  // 何も出ないはず
-    std::cout << "---------------------------" << std::endl;
-    Character c = a;
-    c.use(1, b);  // Cureは残っているはず
-    std::cout << "---------------------------" << std::endl;
+    // src.learnMateria(new Ice());
+
+    src.learnMateria(ice);
+    src.learnMateria(cure);
+    delete ice;
+    delete cure;
+    AMateria* m1 = src.createMateria("ice");
+    AMateria* m2 = src.createMateria("cure");
+    alice.equip(m1);
+    alice.equip(m2);
+    alice.use(0, bob);
+    alice.use(1, bob);
+    AMateria* unknown = src.createMateria("fire");
+    if (!unknown) std::cout << "fire not found" << std::endl;
 
     return 0;
 }
