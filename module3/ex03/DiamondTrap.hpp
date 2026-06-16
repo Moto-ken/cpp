@@ -8,7 +8,7 @@
 
 class DiamondTrap : public ScavTrap, public FragTrap {
    private:
-    std::string _name;
+    std::string name;
 
    public:
     DiamondTrap();
@@ -23,8 +23,6 @@ class DiamondTrap : public ScavTrap, public FragTrap {
     void takeDamage(unsigned int amount);
 
     void beRepaired(unsigned int amount);
-    // void guardGate();
-    // void highFivesGuys(void);
 };
 
 #endif

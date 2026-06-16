@@ -98,7 +98,6 @@ Fixed Fixed::operator*(const Fixed& other) const {
 Fixed Fixed::operator/(const Fixed& other) const {
     Fixed result;
 
-    if (other.value == 0) throw std::runtime_error("division by zero");
     long long div =
         (static_cast<long long>(this->value) << fractionalBits) / other.value;
     result.setRawBits(div);
