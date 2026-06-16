@@ -5,8 +5,8 @@
 #include <iostream>
 #include <string>
 
-// include roop??
-// #include "../character/ICharacter.hpp"
+#include "../character/ICharacter.hpp"
+
 class ICharacter;
 
 class AMateria {
