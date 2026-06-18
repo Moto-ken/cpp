@@ -1,15 +1,14 @@
 
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 int main() {
-    try {
-        Bureaucrat first("first", 1);
+    Bureaucrat bob("Bob", 50);
+    Bureaucrat alice("Alice", 30);
+    Form Documents("Confidential Documents", 40, 20);
 
-        std::cout << first << std::endl;
-        first.DownGrade();
-        std::cout << first << std::endl;
-    } catch (std::exception& e) {
-        std::cout << e.what() << std::endl;
-    }
+    bob.signForm(Documents);
+    alice.signForm(Documents);
+    std::cout << Documents << std::endl;
     return 0;
 }
