@@ -43,7 +43,7 @@ double ScalarConverter::parse(const std::string& s, Type type) {
     char* end;
     errno = 0;
     if (type == INT) {
-        long value = std::strtol(s.c_str(), &end, 10);
+        long long value = std::strtol(s.c_str(), &end, 10);
         if (*end != '\0') throw std::invalid_argument("invalid int");
         if (errno == ERANGE) throw std::out_of_range("number too large");
         return static_cast<double>(value);
