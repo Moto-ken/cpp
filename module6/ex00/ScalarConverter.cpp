@@ -1,6 +1,12 @@
 
 #include "ScalarConverter.hpp"
 
+static bool isNan(double value) { return value != value; }
+
+static bool isInf(double value) {
+    return value > DBL_MAX || value < -DBL_MAX;
+}
+
 ScalarConverter::ScalarConverter() {}
 
 ScalarConverter::~ScalarConverter() {}
@@ -20,6 +26,7 @@ Type ScalarConverter::detectType(const std::string& s) {
 
     bool dot = false;
     bool f = false;
+    bool digit = false;
     size_t i = 0;
     if (s[0] == '+' || s[0] == '-') i++;
     while (i < s.size()) {
@@ -28,11 +35,14 @@ Type ScalarConverter::detectType(const std::string& s) {
             dot = true;
         } else if (s[i] == 'f' && i == s.size() - 1) {
             f = true;
-        } else if (!isdigit(static_cast<unsigned char>(s[i]))) {
+        } else if (isdigit(static_cast<unsigned char>(s[i]))) {
+            digit = true;
+        } else {
             return INVALID;
         }
         i++;
     }
+    if (!digit) return INVALID;
     if (f) return FLOAT;
     if (dot) return DOUBLE;
     return INT;
@@ -49,6 +59,7 @@ double ScalarConverter::parse(const std::string& s, Type type) {
         return static_cast<double>(value);
     }
     double value = std::strtod(s.c_str(), &end);
+    if (type == FLOAT && *end == 'f') end++;
     if (*end != '\0') throw std::invalid_argument("invalid double");
     if (errno == ERANGE) throw std::out_of_range("double overflow");
     return value;
@@ -80,7 +91,7 @@ void ScalarConverter::convert(const std::string& literal) {
 }
 
 void ScalarConverter::printChar(double value) {
-    if (std::isnan(value) || value < 0 || value > 127) {
+    if (isNan(value) || value < 0 || value > 127) {
         std::cout << "char: impossible" << std::endl;
         return;
     }
@@ -93,7 +104,7 @@ void ScalarConverter::printChar(double value) {
 }
 
 void ScalarConverter::printInt(double value) {
-    if (std::isnan(value) || value > INT_MAX || value < INT_MIN) {
+    if (isNan(value) || value > INT_MAX || value < INT_MIN) {
         std::cout << "int: impossible" << std::endl;
         return;
     }
@@ -102,11 +113,11 @@ void ScalarConverter::printInt(double value) {
 
 void ScalarConverter::printFloat(double value) {
     std::cout << "float: ";
-    if (std::isnan(value)) {
+    if (isNan(value)) {
         std::cout << "nanf" << std::endl;
         return;
     }
-    if (std::isinf(value)) {
+    if (isInf(value)) {
         if (value < 0) {
             std::cout << "-inff" << std::endl;
         } else {
@@ -125,11 +136,11 @@ void ScalarConverter::printFloat(double value) {
 
 void ScalarConverter::printDouble(double value) {
     std::cout << "double: ";
-    if (std::isnan(value)) {
+    if (isNan(value)) {
         std::cout << "nan" << std::endl;
         return;
     }
-    if (std::isinf(value)) {
+    if (isInf(value)) {
         std::cout << (value < 0 ? "-inf" : "+inf") << std::endl;
         return;
     }
@@ -152,7 +163,6 @@ void ScalarConverter::printDoublePseudo(const std::string& s) {
 }
 
 void ScalarConverter::printImpossible() {
-    std::cout << "printImpossible" << std::endl;
     std::cout << "char: impossible" << std::endl;
     std::cout << "int: impossible" << std::endl;
     std::cout << "float: impossible" << std::endl;

@@ -12,6 +12,8 @@ class Data {
     Data(const Data& other);
     Data& operator=(const Data& other);
     ~Data();
+
+    int getNb() const;
 };
 
 #endif

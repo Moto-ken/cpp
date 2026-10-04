@@ -15,3 +15,5 @@ Data& Data::operator=(const Data& other) {
 }
 
 Data::~Data() {}
+
+int Data::getNb() const { return this->nb; }
