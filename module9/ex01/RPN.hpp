@@ -18,10 +18,10 @@ class RPN {
     RPN& operator=(const RPN& other);
     ~RPN();
 
-    long evaluate(const std::string& expr);
+    double evaluate(const std::string& expr);
 
    private:
-    std::stack<long, std::list<long> > _stack;
+    std::stack<double, std::list<double> > _stack;
     static bool isOperator(const std::string& token);
     void applyOperator(char op);
 };

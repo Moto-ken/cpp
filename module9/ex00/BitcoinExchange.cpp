@@ -80,6 +80,10 @@ bool BitcoinExchange::processInput(const std::string& filename) const {
             std::cerr << "Error: bad input => " << date << std::endl;
             continue;
         }
+        if (valueStr.size() > 16) {
+            std::cerr << "Error: too many digits => " << valueStr << std::endl;
+            continue;
+        }
 
         std::stringstream ss(valueStr);
         double value;

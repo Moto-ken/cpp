@@ -19,12 +19,12 @@ bool RPN::isOperator(const std::string& token) {
 
 void RPN::applyOperator(char op) {
     if (_stack.size() < 2) throw std::runtime_error("Error");
-    long b = _stack.top();
+    double b = _stack.top();
     _stack.pop();
-    long a = _stack.top();
+    double a = _stack.top();
     _stack.pop();
 
-    long result;
+    double result;
     if (op == '+')
         result = a + b;
     else if (op == '-')
@@ -40,7 +40,7 @@ void RPN::applyOperator(char op) {
     _stack.push(result);
 }
 
-long RPN::evaluate(const std::string& expr) {
+double RPN::evaluate(const std::string& expr) {
     while (!_stack.empty()) _stack.pop();
 
     std::stringstream ss(expr);

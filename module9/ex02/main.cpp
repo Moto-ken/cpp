@@ -23,7 +23,9 @@ int main(int argc, char* argv[]) {
     std::vector<int> vec;
     std::deque<int> deq;
     double vecTime = pm.measure(vec, argv + 1, n);
+    std::size_t vecComp = pm.getComparisons();
     double deqTime = pm.measure(deq, argv + 1, n);
+    std::size_t deqComp = pm.getComparisons();
 
     std::cout << "After: ";
     for (std::size_t i = 0; i < vec.size(); ++i) std::cout << " " << vec[i];
@@ -36,5 +38,11 @@ int main(int argc, char* argv[]) {
     std::cout << "Time to process a range of " << n
               << " elements with std::deque  : " << deqTime << " us"
               << std::endl;
+
+    std::size_t maxComp = PmergeMe::maxComparisons(n);
+    std::cout << "Comparisons with std::vector : " << vecComp << " / F(" << n
+              << ") = " << maxComp << std::endl;
+    std::cout << "Comparisons with std::deque  : " << deqComp << " / F(" << n
+              << ") = " << maxComp << std::endl;
     return 0;
 }

@@ -1,3 +1,6 @@
+
+#include <iomanip>
+
 #include "RPN.hpp"
 
 int main(int argc, char* argv[]) {
@@ -8,7 +11,8 @@ int main(int argc, char* argv[]) {
 
     RPN rpn;
     try {
-        std::cout << rpn.evaluate(argv[1]) << std::endl;
+        std::cout << std::setprecision(15) << rpn.evaluate(argv[1])
+                  << std::endl;
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;
         return 1;

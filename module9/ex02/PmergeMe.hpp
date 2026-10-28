@@ -26,7 +26,13 @@ class PmergeMe {
     template <typename Container>
     double measure(Container& c, char** argv, int n);
 
+    std::size_t getComparisons() const;
+    static std::size_t maxComparisons(std::size_t n);
+
    private:
+    static std::size_t _comparisons;
+    static bool less(int a, int b);
+
     void sort(std::vector<int>& v);
     static void makePairs(const std::vector<int>& v,
                           std::vector<std::pair<int, int> >& pairs,
@@ -58,6 +64,7 @@ template <typename Container>
 double PmergeMe::measure(Container& c, char** argv, int n) {
     struct timeval start;
     struct timeval end;
+    _comparisons = 0;
     gettimeofday(&start, NULL);
     for (int i = 0; i < n; ++i) c.push_back(std::atoi(argv[i]));
 
